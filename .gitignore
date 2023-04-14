@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# other files created as part of scripts
+.tempAudio.wav
