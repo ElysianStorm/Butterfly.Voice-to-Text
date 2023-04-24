@@ -2,6 +2,7 @@ import pyaudio
 import wave
 import whisper
 import torch
+import keyboard
 
 # Initialize the device
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -15,20 +16,22 @@ class audioFileCreate(object):
     filename = ".tempAudio.wav"
 
     p = pyaudio.PyAudio()  # Create an interface to PortAudio
-
-    print('Recording')
     stream = p.open(format=sample_format,
-                    channels=channels,
-                    rate=fs,
-                    frames_per_buffer=chunk,
-                    input=True)
-
+                                channels=channels,
+                                rate=fs,
+                                frames_per_buffer=chunk,
+                                input=True)
+    
     frames = []  # Initialize array to store frames
 
-    # Store data in chunks for 3 seconds
-    for i in range(0, int(fs / chunk * seconds)):
-        data = stream.read(chunk)
-        frames.append(data) 
+    print('Hold SPACE to record')
+    keyboard.wait('space')
+    if keyboard.is_pressed('space'):
+        print('Recording...')
+
+        while keyboard.is_pressed('space'):
+            data = stream.read(chunk)
+            frames.append(data)
 
     # Stop and close the stream 
     stream.stop_stream()
