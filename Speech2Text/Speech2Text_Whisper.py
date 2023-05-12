@@ -9,7 +9,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 class audioFileCreate(object):
     chunk = 1024  # Record in chunks of 1024 samples
-    sample_format = pyaudio.paInt16  # 16 bits per sample
+    sample_format = pyaudio.paInt16  # 16 bits per sample                                                                                                                                                                
     channels = 2
     fs = 44100  # Record at 44100 samples per second
     seconds = 5
@@ -70,7 +70,7 @@ def main():
     options = whisper.DecodingOptions()
     result = whisper.decode(model, mel, options)
 
-    # print the recognized text
+    # print the recognized textge
     # print(result.text)
 
     # translation for other languages
