@@ -1,3 +1,4 @@
+from os import write
 import pyaudio
 import wave
 import whisper
@@ -50,6 +51,13 @@ class audioFileCreate(object):
     wf.close()
     print("File created")
 
+def generateTranscribedText(object):
+    textFile = open("TranscribedText.txt", "w+")
+    textFile.write(object["text"])
+    textFile.close()
+    print("Transcribed text file created.")
+
+
 def main():
     audioFile = audioFileCreate()
     model = whisper.load_model("tiny")
@@ -70,13 +78,14 @@ def main():
     options = whisper.DecodingOptions()
     result = whisper.decode(model, mel, options)
 
-    # print the recognized textge
+    # print the recognized text
     # print(result.text)
 
     # translation for other languages
     print(f"Translated text from {lang} to en")
-    text = model.transcribe(audioFile.filename, task = 'translate')
-    print(text["text"]) 
+    output = model.transcribe(audioFile.filename, task = 'translate')
+    print(output["text"])
+    generateTranscribedText(output)
     
 if __name__ == '__main__':
     main()

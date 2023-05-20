@@ -130,3 +130,5 @@ dmypy.json
 
 # other files created as part of scripts
 .tempAudio.wav
+TranscribedText.txt
+API_KEY.txt

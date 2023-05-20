@@ -136,6 +136,13 @@ class audioProcess(object):
                    yield None
                    ring_buffer.clear()
 
+def generateTranscribedText(text):
+    textFile = open("TrascribedText.txt", "w+")
+    textFile.write(text)
+    textFile.close()
+    print("Transcribed text file created.")
+    
+
 def main():
     # Load DeepSpeech model
     model = 'D:\Document\GitHub\Reflect\Speech2Text\deepspeech-0.9.3-models.pbmm'
@@ -168,6 +175,7 @@ def main():
             if spinner: spinner.stop()
             text = stream_context.finishStream()
             print("Recognized: %s" % text)
+            generateTranscribedText(text)
             stream_context = model.createStream()
         
 if __name__ == '__main__':
